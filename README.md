@@ -25,4 +25,19 @@ and emergency stop requests.
 **7. Testing and Simulation:** Develop a test bench to verify the correctness of your FSM design. Simulate various scenarios to ensure
 the elevator operates as expected.
 
-**8. Documentation:** Provide documentation that includes state diagrams, state transition tables, and explanations of the FSM's operation
+**8. Documentation:** Provide documentation that includes state diagrams, state transition tables, and explanations of the FSM's operation.
+
+## Assumptions Made 
+
+### 1. Direction Persistence 
+
+The first assumption, about the elevator not changing direction until it completes all requests in that direction. This means that if the elevator is moving upward, it will continue to serve requests going upward until there are no more requests in that direction. The same applies when moving downward. This behavior aligns with the concept of the elevator prioritizing requests in the direction it's currently moving. 
+
+### 2. Idle State 
+
+The assumption that the elevator stops and becomes idle after serving all requests. It  ensures  that  the  elevator  doesn't  keep  moving unnecessarily once all passenger requests have been fulfilled. The idle state is a crucial part of the system's operation as it signifies that the elevator is available for new requests. 
+
+### 3. Door Control Signal 
+
+The assumption that arrival sensors generate a control signal for opening the lift door for a clock timer upon reaching the destination floor. It ensures that the doors remain open for a sufficient time to allow passengers to enter and exit the elevator  safely. This  safety  feature  is  essential  for preventing  accidents  and  ensuring passenger convenience. 
+
