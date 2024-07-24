@@ -50,6 +50,7 @@ The implementation of the modified priority algorithm within the Elevator Contro
 ### Table 1 
 
 Table 1 provides a detailed overview of the finite state machine transitions within our elevator control system.
+
 <table><tr><th colspan="1">Current State</th><th colspan="1">Input</th><th colspan="1">Next State</th><th colspan="1">Output</th></tr>
 <tr><td colspan="1" valign="bottom">Reset</td><td colspan="1">reset = 1</td><td colspan="1">Reset</td><td colspan="1">Idle =1,door=0, Up=1, Down=0,requests=0, estop=0, current_floor=0</td></tr>
 <tr><td colspan="1"></td><td colspan="1">reset = 0</td><td colspan="1">Door Closed & Idle (1)</td><td colspan="1">Idle =1,door=0, Up=1, door_timer=0</td></tr>
@@ -67,6 +68,8 @@ Table 1 provides a detailed overview of the finite state machine transitions wit
 ### Table 2 
 
 Table 2 presents a concise representation of state transitions related to the update of elevator requests, max\_request, and min\_request. It defines how the elevator system handles new floor requests and maintains these key variables, which play a crucial role in optimizing request prioritization  and  elevator  movement.
+
+
 <table><tr><th colspan="1">Current State</th><th colspan="1">Input</th><th colspan="1">Next State</th><th colspan="2">Output</th></tr>
 <tr><td colspan="1" rowspan="2">UpdateRequests</td><td colspan="1" valign="top">NewFloorRequested</td><td colspan="1" valign="top">NewFloorRequested</td><td colspan="2" rowspan="2">x</td></tr>
 <tr><td colspan="1">No NewFloorRequested</td><td colspan="1">UpdateRequests</td></tr>
