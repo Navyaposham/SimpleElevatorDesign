@@ -69,7 +69,6 @@ Table 1 provides a detailed overview of the finite state machine transitions wit
 
 Table 2 presents a concise representation of state transitions related to the update of elevator requests, max\_request, min\_request and how the elevator system handles new floor requests and maintains these key variables.
 
-
 <table><tr><th colspan="1">Current State</th><th colspan="1">Input</th><th colspan="1">Next State</th><th colspan="2">Output</th></tr>
 <tr><td colspan="1" rowspan="2">UpdateRequests</td><td colspan="1" valign="top">NewFloorRequested</td><td colspan="1" valign="top">NewFloorRequested</td><td colspan="2" rowspan="2">x</td></tr>
 <tr><td colspan="1">No NewFloorRequested</td><td colspan="1">UpdateRequests</td></tr>
