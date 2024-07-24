@@ -63,7 +63,7 @@ Table 1 provides a detailed overview of the finite state machine transitions wit
 <tr><td colspan="1"></td><td colspan="1" valign="bottom">Checker = 1</td><td colspan="1" valign="bottom">Door Open & Idle (1)</td><td colspan="1" valign="bottom">door = 1; idle = 1; requests[current_floor] = 0; door_timer = 1</td></tr>
 <tr><td colspan="1" valign="top">Moving Up</td><td colspan="1" valign="bottom">Checker = 0</td><td colspan="1" valign="bottom">Moving Up</td><td colspan="1" valign="bottom">idle = 0; current floor +=1</td></tr>
 <tr><td colspan="1"></td><td colspan="1">estop = 1</td><td colspan="1">Door Closed & Idle (1)</td><td colspan="1">Idle =1,door=0, Up=1, door_timer=0</td></tr>
-<tr><td colspan="1"></td><td colspan="1" valign="bottom">Checker = 1</td><td colspan="1" valign="bottom">Door Open & Idle (1)</td><td colspan="1" valign="bottom">door = 1; idle = 1; requests[current_floor] = 0; door_timer = 1</td></tr>
+<tr><td colspan="1"></td><td colspan="1" valign="bottom">Checker = 1</td><td colspan="1" valign="bottom">Door Open & Idle (1)</td><td colspan="1" valign="bottom">door = 1; idle = 1; requests[current_floor] = 0; door_timer = 1</td></tr></table>
 
 ### Table 2 
 
