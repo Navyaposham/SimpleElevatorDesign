@@ -3,8 +3,8 @@
 ## Introduction 
 
 Design of System Verilog FSM for an elevator control system. The system controls the movement of an elevator in a multi-story
-building with the following requirements:
-**1. Floor Selection:** The elevator should be able to stop on multiple floors. Users can select the desired floor from inside the elevator.
+building with the following requirements:/n
+**1. Floor Selection:** The elevator should be able to stop on multiple floors. Users can select the desired floor from inside the elevator./n
 **2. Priority Handling:** The elevator should prioritize serving passengers based on the order in which they press the buttons. For example,
 if a user inside the elevator selects floor 5, and another user on floor 3 presses the button to go to floor 4, the elevator should first go to
 floor 3 to pick up the new passenger before proceeding to floor 5.
