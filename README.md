@@ -78,3 +78,15 @@ Table 2 presents a concise representation of state transitions related to the up
 <tr><td colspan="1"></td><td colspan="1">req[min_req] == 0 & req_floor<currFloor</td><td colspan="1">UpdateMinReq</td><td colspan="2">min_req = req_floor</td></tr>
 <tr><td colspan="1">UpdateMaxReq UpdateMinReq</td><td colspan="1">x</td><td colspan="1">UpdateRequests UpdateRequests</td><td colspan="1">x</td></tr>
 </table>
+
+## State Diagrams 
+
+Comprehensive state diagrams to visualize the system's finite state machine. 
+
+### Diagram 1 
+
+![](https://github.com/Engineer-Ayesha-Shafique/Generalized-Elevator-Control-System-Using-System-Verilog/blob/main/lift_fsm_diagram%201.png)
+
+### Diagram 2
+
+![](https://github.com/Engineer-Ayesha-Shafique/Generalized-Elevator-Control-System-Using-System-Verilog/blob/main/lift_state_diagram%202.png)
