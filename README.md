@@ -26,21 +26,6 @@ the elevator operates as expected.
 **8. Documentation:** Documentation that includes state diagrams, state transition tables, and explanations of the FSM's operation.
 
 
-## Assumptions Made 
-
-### 1. Direction Persistence 
-
-The first assumption, about the elevator not changing direction until it completes all requests in that direction. This means that if the elevator is moving upward, it will continue to serve requests going upward until there are no more requests in that direction. The same applies when moving downward. This behavior aligns with the concept of the elevator prioritizing requests in the direction it's currently moving. 
-
-### 2. Idle State 
-
-The assumption that the elevator stops and becomes idle after serving all requests. It  ensures  that  the  elevator  doesn't  keep  moving unnecessarily once all passenger requests have been fulfilled. The idle state is a crucial part of the system's operation as it signifies that the elevator is available for new requests. 
-
-### 3. Door Control Signal 
-
-The assumption that arrival sensors generate a control signal for opening the lift door for a clock timer upon reaching the destination floor. It ensures that the doors remain open for a sufficient time to allow passengers to enter and exit the elevator  safely. This  safety  feature  is  essential  for preventing  accidents  and  ensuring passenger convenience. 
-
-
 ## Priority Algorithm Implementation and Optimization
 
 The implementation of the modified priority algorithm within the Elevator Control System  represents  a  substantial  improvement  in  elevator  operations.  By  intelligently prioritizing  requests  based  on  proximity  and  direction,  the  system  reduces  travel  times, conserves energy, and enhances the overall passenger experience. The seamless integration of an emergency system ensures that safety is not compromised while maximizing efficiency in elevator operations. The Elevator Control System's optimization and achievement of adaptability to varying floor counts showcase its versatility, scalability, and resource efficiency. This accomplishment positions our system as a versatile and future-ready solution, ready to meet the diverse needs of the vertical transportation industry, from small-scale buildings to high- rises with numerous floors.
