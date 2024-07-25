@@ -66,7 +66,6 @@ Table 2 presents a concise representation of state transitions related to the up
 
 ## State Diagrams 
 
-Comprehensive state diagrams to visualize the system's finite state machine. 
 
 ### Diagram 1 
 
