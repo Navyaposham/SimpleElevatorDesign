@@ -85,8 +85,8 @@ Comprehensive state diagrams to visualize the system's finite state machine.
 
 ### Diagram 1 
 
-![](https://github.com/Engineer-Ayesha-Shafique/Generalized-Elevator-Control-System-Using-System-Verilog/blob/main/lift_fsm_diagram%201.png)
+![sd1](https://github.com/user-attachments/assets/aee407cb-3056-4bcc-8f07-aa05a49a8e9d)
 
 ### Diagram 2
 
-![](https://github.com/Engineer-Ayesha-Shafique/Generalized-Elevator-Control-System-Using-System-Verilog/blob/main/lift_state_diagram%202.png)
+![sd2](https://github.com/user-attachments/assets/a0f12017-91cd-40a9-a728-ea46e0f6a00d)
