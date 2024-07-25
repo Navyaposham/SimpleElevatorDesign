@@ -1,133 +1,147 @@
-Code.v 
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    14:33:45 04/24/2024 
-// Design Name: 
-// Module Name:    Code 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
-module lift_controller(
-    input clk,
-    input ground,
-    input first,
-    input second,
-    input bottom,
-    input middle_minus,
-    input middle_plus,
-    input top,
-	output reg curr1,
-    output reg curr2,
-    output reg curr3,
-    output reg up,
-    output reg down,
-    output reg idle,
-    output reg motor_up,
-	output reg motor_down
-);
+module Lift8(clk, reset, req_floor, idle, door, Up, Down, current_floor, requests, max_request, min_request, emergency_stop);
 
-reg target1 = 0, target2 = 0, target3 = 0;
+  input clk, reset, emergency_stop;
+  input logic [2:0] req_floor;      // 3-bit input for 8 floors (0 to 7)
+  output logic [1:0] door;
+  output logic [2:0] max_request;
+  output logic [2:0] min_request;
+  output logic [1:0] Up;
+  output logic [1:0] Down;
+  output logic [1:0] idle;
+  output logic [2:0] current_floor;
+  output logic [7:0] requests;
 
-always @(posedge clk or posedge clk) begin
+  logic door_timer;
+  logic emergency_stopped;
+  logic flag=0;
 
-if(ground && !first && !second) begin
-target1 <= 1;
-target2 <= 0;
-target3 <= 0;
-end
+  // Update requests when a new floor is requested
+  always @(req_floor)
+  begin
+    requests[req_floor] = 1;
+  // Update max_request and min_request based on requested floors
+    if (max_request < req_floor)
+    begin
+      max_request = req_floor;
+    end
+    
+    if (min_request > req_floor)
+    begin
+      min_request = req_floor;
+    end
+    
+      // Update max_request and min_request based on current floor
+    
+    if (requests[max_request] == 0 && req_floor > current_floor)
+    begin
+      max_request = req_floor;
+    end
+    
+    if (requests[min_request] == 0 && req_floor < current_floor)
+    begin
+      min_request = req_floor;
+    end
+    
+  end
 
-else if(!ground && first && !second) begin
-target1 <= 0;
-target2 <= 1;
-target3 <= 0;
-end
+  // Check and update lift behavior based on current floor
+  always @(current_floor )
+  begin
+    if (requests[current_floor] == 1)
+    begin
+      idle = 1;
+      door = 1;
+      requests[current_floor] = 0;
+      door_timer = 1; // Start the door timer when opening
+    end
+  end
 
-else if(!ground && !first && second) begin
-target1 <= 0;
-target2 <= 0;
-target3 <= 1;
-end
+  // State machine for lift control
+  always @(posedge clk )
 
-else if(reset) begin
-target1 <= 1;
-target2 <= 0;
-target3 <= 0;
-end
-
-if(top && !middle_minus && !middle_plus && !bottom) begin
-curr1 <= 0;
-curr2 <= 0;
-curr3 <= 1;
-
-if ( target1 == curr1  && target2 == curr2 && target3 == curr3) begin
- up <= 0;
- down <= 0;
- motor_up <= 0;
- motor_down <= 0;
- idle <= 1;
- end
- else begin
- down <= 1;
- motor_down <= 1;
- end
-end
-
-end  
- 
-if(!top && middle_minus && middle_plus && !bottom) begin
-curr1 <= 0;
-curr2 <= 1;
-curr3 <= 0;
-
-   if ( target1 == curr1  && target2 == curr2 && target3 == curr3) begin
- up <= 0;
- down <= 0;
- motor_up <= 0;
- motor_down <= 0;
- idle <= 1;
- end
- else if (target1)begin
- down <= 1;
- motor_down <= 1;
- end
- else if (target3) begin
- up <= 1;
- motor_up <= 1;
- end
- end
- 
-end
-
-if(!top && !middle_minus && !middle_plus && bottom) begin
-curr1 <= 1;
-curr2 <= 0;
-curr3 <= 0;
-
-if ( target1 == curr1  && target2 == curr2 && target3 == curr3) begin
- up <= 0;
- down <= 0;
- motor_up <= 0;
- motor_down <= 0;
- idle <= 1;
- end
- else begin
- up <= 1;
- motor_up <= 1;
- end
- 
- end
- 
-end 
+  begin     
+    if (door_timer == 1)
+    begin
+      door <= 0; // Close the door after the one clock expires
+      //$display("%h", current_floor);
+    end
+    if (reset)
+    begin
+      // Reset lift to initial state
+      flag=0;
+      current_floor <= 0;
+      idle <= 0;
+      door <= 0; // door open
+      Up <= 1;   // going up
+      Down <= 0; // not going down
+      max_request <= 0;
+      min_request <= 7;
+      requests <= 0;
+      emergency_stopped <= 0; // Initialize emergency stop state
+    end
+    else if (requests == 0 && !reset)
+    begin
+      // Stay on the current floor if no requests
+      current_floor <= current_floor;
+      emergency_stopped <= 0; // Clear emergency stop when not moving
+    end
+    // emergency
+    else if (emergency_stop)
+    begin
+      // Emergency stop button is turned on
+      idle <= 1;
+      flag <=1;
+      emergency_stopped <= 1; // Set emergency stop state
+    end
+    else if (emergency_stopped && emergency_stop)
+    begin
+      // Remain stopped until the emergency stop button is reset
+      current_floor <= current_floor;
+      door <= 0; // Keep the door closed during an emergency stop
+    end
+    // emergency reset
+    else if (!emergency_stop && flag)
+    begin
+      // Emergency stop button is turned off
+      emergency_stopped <= 0; // Set emergency stop state
+      flag <=0;
+    end
+    else
+    begin
+      // Normal operation when not in emergency stop
+      if (max_request <= 7)
+      begin
+        if (min_request < current_floor && Down == 1)
+        begin
+          // Move down one floor
+          current_floor <= current_floor - 1;
+          door <= 0;
+          idle <= 0;
+        end
+        else if (max_request > current_floor && Up == 1)
+        begin
+          // Move up one floor
+          current_floor <= current_floor + 1;
+          door <= 0;
+          idle <= 0;
+        end
+        else if (req_floor == current_floor)
+        begin
+//             // Open door and handle request
+            door <= 1;
+            idle <= 1;
+        end
+        else if (max_request == current_floor)
+        begin
+          Up <= 0;
+          Down <= 1;
+        end
+        else if (min_request == current_floor)
+        begin
+          Up <= 1;
+          Down <= 0;
+        end
+      end
+    end
+  end
 endmodule
